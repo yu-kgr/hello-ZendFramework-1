@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  php:
+    build: .
+    volumes:
+      - "./php.ini:/usr/local/etc/php/php.ini"
+      - "./html:/var/www/html"
+      - "./000-default.conf:/etc/apache2/sites-available/000-default.conf"
+      - "./.htaccess:/var/www/html.htaccess"
+    ports:
+      - 8080:80
+    tty: true
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
